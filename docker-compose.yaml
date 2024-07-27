@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: strapi
+      POSTGRES_PASSWORD: strapi
+      POSTGRES_DB: strapi
+    volumes:
+      - ./strapi-db:/var/lib/postgresql/data
+
+  strapi:
+    image: jappyjan/strapi:latest
+    environment:
+      DATABASE_CLIENT: postgres
+      DATABASE_HOST: postgres
+      DATABASE_PORT: 5432
+      DATABASE_NAME: strapi
+      DATABASE_USERNAME: strapi
+      DATABASE_PASSWORD: strapi
+    ports:
+      - '1337:1337'
+    depends_on:
+      - postgres
+
+  nextjs:
+    image: jappyjan/nextjs:latest
+    ports:
+      - '3000:3000'
+    depends_on:
+      - strapi
