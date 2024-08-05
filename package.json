@@ -3,8 +3,6 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "db:stop": "docker-compose -f docker-compose.yaml down",
-    "dev:db": "npm run db:stop && docker-compose -f docker-compose.dev.yaml up",
     "dev:app": "cd app && npm run dev",
     "dev:strapi": "cd strapi && npm run develop",
     "dev": "concurrently \"npm:dev:*\"",
@@ -14,6 +12,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "concurrently": "^8.2.2"
+    "concurrently": "^8.2.2",
+    "qs": "^6.12.3"
   }
 }
