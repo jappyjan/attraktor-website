@@ -833,6 +833,13 @@ export interface ApiBlogPostBlogPost extends Schema.CollectionType {
           localized: false;
         };
       }>;
+    cover: Attribute.Media<'images'> &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -852,6 +859,67 @@ export interface ApiBlogPostBlogPost extends Schema.CollectionType {
       'api::blog-post.blog-post',
       'oneToMany',
       'api::blog-post.blog-post'
+    >;
+    locale: Attribute.String;
+  };
+}
+
+export interface ApiNavigationMainNavigationMain extends Schema.SingleType {
+  collectionName: 'navigation_mains';
+  info: {
+    singularName: 'navigation-main';
+    pluralName: 'navigation-mains';
+    displayName: 'Navigation Main';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    logoDarkMode: Attribute.Media<'images'> &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    logoLightMode: Attribute.Media<'images'> &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    menuItems: Attribute.DynamicZone<['menu.link']> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::navigation-main.navigation-main',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::navigation-main.navigation-main',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::navigation-main.navigation-main',
+      'oneToMany',
+      'api::navigation-main.navigation-main'
     >;
     locale: Attribute.String;
   };
@@ -985,6 +1053,7 @@ declare module '@strapi/types' {
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'api::blog-post.blog-post': ApiBlogPostBlogPost;
+      'api::navigation-main.navigation-main': ApiNavigationMainNavigationMain;
       'api::not-found.not-found': ApiNotFoundNotFound;
       'api::page.page': ApiPagePage;
     }

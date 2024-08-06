@@ -17,15 +17,20 @@ interface ContentBlockDefinition {
 
 interface Props {
   content: ContentBlockDefinition | ContentBlockDefinition[];
+  hidden?: string[];
 }
 export function ContentBlockRenderer(props: Props) {
   if (Array.isArray(props.content)) {
     return props.content.map((block, index) => (
-      <ContentBlockRenderer key={index} content={block} />
+      <ContentBlockRenderer key={index} {...props} content={block} />
     ));
   }
 
   const Component = props.content.__component;
+
+  if (props.hidden?.includes(Component)) {
+    return null;
+  }
 
   switch (Component) {
     case "content-block.rich-text":
@@ -34,7 +39,7 @@ export function ContentBlockRenderer(props: Props) {
     case "content-block.image":
       const image = props.content.file!.data;
       return (
-        <div style={{ position: 'relative', width: "500px", height: '200px' }}>
+        <div style={{ position: "relative", width: "500px", height: "200px" }}>
           <Image
             src={getStrapiMediaURL(image.attributes.url)!}
             alt={image.attributes.alternativeText || image.attributes.name}

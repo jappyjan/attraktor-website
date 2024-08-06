@@ -25,11 +25,11 @@ export default async function BlogPostPage(props: RouteProps) {
     "populate[content][populate]=*"
   );
 
-  console.log("post", post?.attributes);
-
   if (!post) {
     const notFoundPage =
-      await fetchAPI<StrapiDocumentFetchResponse<NotFound>>("/not-found");
+      await fetchAPI<StrapiDocumentFetchResponse<NotFound>>("/not-found", {
+        locale: props.params.lang,
+      });
 
     return (
       <>

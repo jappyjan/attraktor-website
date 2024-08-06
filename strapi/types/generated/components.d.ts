@@ -1,5 +1,21 @@
 import type { Schema, Attribute } from '@strapi/strapi';
 
+export interface MenuLink extends Schema.Component {
+  collectionName: 'components_menu_links';
+  info: {
+    displayName: 'link';
+    icon: 'link';
+    description: '';
+  };
+  attributes: {
+    label: Attribute.String & Attribute.Required;
+    url: Attribute.String & Attribute.Required;
+    target: Attribute.Enumeration<['newTab', 'sameTab']> &
+      Attribute.Required &
+      Attribute.DefaultTo<'sameTab'>;
+  };
+}
+
 export interface ContentBlockRichText extends Schema.Component {
   collectionName: 'components_content_block_rich_texts';
   info: {
@@ -25,6 +41,7 @@ export interface ContentBlockImage extends Schema.Component {
 declare module '@strapi/types' {
   export module Shared {
     export interface Components {
+      'menu.link': MenuLink;
       'content-block.rich-text': ContentBlockRichText;
       'content-block.image': ContentBlockImage;
     }

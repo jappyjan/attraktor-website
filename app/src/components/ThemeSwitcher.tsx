@@ -1,24 +1,50 @@
-// app/components/ThemeSwitcher.tsx
 "use client";
 
-import {useTheme} from "next-themes";
-import { useEffect, useState } from "react";
+import { Button, ButtonGroup } from "@nextui-org/react";
+import { useTheme } from "next-themes";
+import { useEffect, useMemo, useState } from "react";
+import { MdLightMode, MdAutoAwesome, MdDarkMode } from "react-icons/md";
 
 export function ThemeSwitcher() {
-  const [mounted, setMounted] = useState(false)
-  const { theme, setTheme } = useTheme()
+  const [mounted, setMounted] = useState(false);
+  const { theme, setTheme } = useTheme();
 
   useEffect(() => {
-    setMounted(true)
-  }, [])
+    setMounted(true);
+  }, []);
 
-  if(!mounted) return null
+  const modes = useMemo(() => {
+    return [
+      {
+        icon: MdLightMode,
+        key: "light",
+      },
+      {
+        icon: MdAutoAwesome,
+        key: "system",
+      },
+      {
+        icon: MdDarkMode,
+        key: "dark",
+      },
+    ];
+  }, []);
+
+  if (!mounted) return null;
 
   return (
-    <div>
-      The current theme is: {theme}
-      <button onClick={() => setTheme('light')}>Light Mode</button>
-      <button onClick={() => setTheme('dark')}>Dark Mode</button>
-    </div>
-  )
-};
+    <ButtonGroup>
+      {modes.map((mode) => (
+        <Button
+          key={mode.key}
+          disabled={theme === mode.key}
+          onClick={() => setTheme(mode.key)}
+          isIconOnly
+          className={theme === mode.key ? "bg-primary" : ""}
+        >
+          <mode.icon />
+        </Button>
+      ))}
+    </ButtonGroup>
+  );
+}

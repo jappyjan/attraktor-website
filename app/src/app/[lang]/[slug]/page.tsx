@@ -26,7 +26,9 @@ export default async function SluggedPage(props: RouteProps) {
 
   if (!page) {
     const notFoundPage =
-      await fetchAPI<StrapiDocumentFetchResponse<NotFound>>("/not-found");
+      await fetchAPI<StrapiDocumentFetchResponse<NotFound>>("/not-found", {
+        locale: props.params.lang,
+      });
 
     return (
       <>
