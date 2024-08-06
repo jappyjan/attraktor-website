@@ -1,3 +1,6 @@
+import { NextUIProvider } from "@nextui-org/react";
+import { ThemeProvider } from "next-themes";
+import { ThemeSwitcher } from "~/components/ThemeSwitcher";
 import { getI18nConfig } from "~/i18n-config";
 
 export default async function LangLayout({
@@ -10,7 +13,12 @@ export default async function LangLayout({
   return (
     <html lang={params.lang}>
       <body>
-        <main>{children}</main>
+        <NextUIProvider>
+          <ThemeProvider>
+            <ThemeSwitcher />
+            <main className={`text-foreground bg-background`}>{children}</main>
+          </ThemeProvider>
+        </NextUIProvider>
       </body>
     </html>
   );
