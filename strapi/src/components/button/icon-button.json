@@ -1,0 +1,26 @@
+{
+  "collectionName": "components_button_icon_buttons",
+  "info": {
+    "displayName": "IconButton",
+    "icon": "cursor",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string",
+      "required": true
+    },
+    "icon": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": false,
+      "required": true
+    }
+  }
+}

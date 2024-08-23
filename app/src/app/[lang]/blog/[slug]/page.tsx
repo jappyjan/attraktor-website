@@ -1,6 +1,4 @@
-import {
-  BlocksRenderer,
-} from "@strapi/blocks-react-renderer";
+import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 import {
   fetchSluggedDocument,
   fetchAPI,
@@ -22,14 +20,16 @@ export default async function BlogPostPage(props: RouteProps) {
     "blog-posts",
     props.params.slug,
     props.params.lang,
-    "populate[content][populate]=*"
+    "populate[content][populate]=*",
   );
 
   if (!post) {
-    const notFoundPage =
-      await fetchAPI<StrapiDocumentFetchResponse<NotFound>>("/not-found", {
+    const notFoundPage = await fetchAPI<StrapiDocumentFetchResponse<NotFound>>(
+      "/not-found",
+      {
         locale: props.params.lang,
-      });
+      },
+    );
 
     return (
       <>
@@ -42,7 +42,10 @@ export default async function BlogPostPage(props: RouteProps) {
     <>
       <h1>Post: {post.attributes.title}</h1>
       <hr />
-      <ContentBlockRenderer content={post.attributes.content} />
+      <ContentBlockRenderer
+        lang={props.params.lang}
+        content={post.attributes.content}
+      />
     </>
   );
 }

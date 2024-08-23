@@ -2,17 +2,18 @@
   "collectionName": "components_content_block_images",
   "info": {
     "displayName": "Image",
-    "icon": "picture"
+    "icon": "picture",
+    "description": ""
   },
   "options": {},
   "attributes": {
     "file": {
-      "allowedTypes": [
-        "images"
-      ],
       "type": "media",
       "multiple": false,
-      "required": true
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
     }
   }
 }

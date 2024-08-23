@@ -1,23 +1,15 @@
 import {
-  type BlocksContent,
   BlocksRenderer,
 } from "@strapi/blocks-react-renderer";
-import Image from "next/image";
-import { getStrapiMediaURL } from "~/utils/strapi/fetch-api";
-import { type Media } from "~strapi/src/common/schemas-to-ts/Media";
+import { RecentPostsList } from "../blog/recent-posts-list";
+import { StrapiImage } from "./strapi-image";
+import { type ContentBlockDefinition } from "~/types/strapi";
 
-interface ContentBlockDefinition {
-  id: number;
-  __component: string;
-  content?: BlocksContent;
-  file?: {
-    data: Media;
-  };
-}
 
 interface Props {
   content: ContentBlockDefinition | ContentBlockDefinition[];
   hidden?: string[];
+  lang: string;
 }
 export function ContentBlockRenderer(props: Props) {
   if (Array.isArray(props.content)) {
@@ -38,16 +30,11 @@ export function ContentBlockRenderer(props: Props) {
 
     case "content-block.image":
       const image = props.content.file!.data;
-      return (
-        <div style={{ position: "relative", width: "500px", height: "200px" }}>
-          <Image
-            src={getStrapiMediaURL(image.attributes.url)!}
-            alt={image.attributes.alternativeText || image.attributes.name}
-            fill={true}
-            objectFit="contain"
-          />
-        </div>
-      );
+
+      return <StrapiImage image={image} />;
+
+    case "blog-posts.recent-posts":
+      return <RecentPostsList lang={props.lang} />;
 
     default:
       console.error(`Unknown ContentBlock component: ${Component}`);

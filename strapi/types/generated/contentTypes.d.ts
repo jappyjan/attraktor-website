@@ -423,6 +423,7 @@ export interface PluginUploadFile extends Schema.CollectionType {
       'admin::user'
     > &
       Attribute.Private;
+    blurhash: Attribute.Text;
   };
 }
 
@@ -864,6 +865,108 @@ export interface ApiBlogPostBlogPost extends Schema.CollectionType {
   };
 }
 
+export interface ApiFooterFooter extends Schema.SingleType {
+  collectionName: 'footers';
+  info: {
+    singularName: 'footer';
+    pluralName: 'footers';
+    displayName: 'Footer';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    links: Attribute.DynamicZone<['menu.link']> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    socialMediaButtons: Attribute.DynamicZone<['button.icon-button']> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::footer.footer',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::footer.footer',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::footer.footer',
+      'oneToMany',
+      'api::footer.footer'
+    >;
+    locale: Attribute.String;
+  };
+}
+
+export interface ApiHomeHome extends Schema.SingleType {
+  collectionName: 'homes';
+  info: {
+    singularName: 'home';
+    pluralName: 'homes';
+    displayName: 'Home';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    content: Attribute.DynamicZone<
+      ['content-block.rich-text', 'content-block.image']
+    > &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    title: Attribute.String &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<'api::home.home', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<'api::home.home', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::home.home',
+      'oneToMany',
+      'api::home.home'
+    >;
+    locale: Attribute.String;
+  };
+}
+
 export interface ApiNavigationMainNavigationMain extends Schema.SingleType {
   collectionName: 'navigation_mains';
   info: {
@@ -1034,6 +1137,53 @@ export interface ApiPagePage extends Schema.CollectionType {
   };
 }
 
+export interface ApiTranslationTranslation extends Schema.SingleType {
+  collectionName: 'translations';
+  info: {
+    singularName: 'translation';
+    pluralName: 'translations';
+    displayName: 'Translations';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    readMoreButtonLabel: Attribute.String &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::translation.translation',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::translation.translation',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::translation.translation',
+      'oneToMany',
+      'api::translation.translation'
+    >;
+    locale: Attribute.String;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -1053,9 +1203,12 @@ declare module '@strapi/types' {
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'api::blog-post.blog-post': ApiBlogPostBlogPost;
+      'api::footer.footer': ApiFooterFooter;
+      'api::home.home': ApiHomeHome;
       'api::navigation-main.navigation-main': ApiNavigationMainNavigationMain;
       'api::not-found.not-found': ApiNotFoundNotFound;
       'api::page.page': ApiPagePage;
+      'api::translation.translation': ApiTranslationTranslation;
     }
   }
 }

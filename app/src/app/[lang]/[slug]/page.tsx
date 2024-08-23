@@ -9,6 +9,7 @@ import {
 } from "@strapi/blocks-react-renderer";
 import type { Page } from "~strapi/src/api/page/content-types/page/page";
 import type { NotFound } from "~strapi/src/api/not-found/content-types/not-found/not-found";
+import { Page as PageComponent } from "~/components/page";
 
 interface RouteProps {
   params: {
@@ -25,15 +26,17 @@ export default async function SluggedPage(props: RouteProps) {
   );
 
   if (!page) {
-    const notFoundPage =
-      await fetchAPI<StrapiDocumentFetchResponse<NotFound>>("/not-found", {
+    const notFoundPage = await fetchAPI<StrapiDocumentFetchResponse<NotFound>>(
+      "/not-found",
+      {
         locale: props.params.lang,
-      });
+      },
+    );
 
     return (
-      <>
+      <PageComponent title="404">
         <BlocksRenderer content={notFoundPage.data.attributes.content} />
-      </>
+      </PageComponent>
     );
   }
 

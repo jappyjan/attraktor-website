@@ -1,0 +1,28 @@
+{
+  "kind": "singleType",
+  "collectionName": "translations",
+  "info": {
+    "singularName": "translation",
+    "pluralName": "translations",
+    "displayName": "Translations"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "readMoreButtonLabel": {
+      "type": "string",
+      "required": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    }
+  }
+}

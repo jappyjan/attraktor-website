@@ -32,9 +32,24 @@ export interface ContentBlockImage extends Schema.Component {
   info: {
     displayName: 'Image';
     icon: 'picture';
+    description: '';
   };
   attributes: {
     file: Attribute.Media<'images'> & Attribute.Required;
+  };
+}
+
+export interface ButtonIconButton extends Schema.Component {
+  collectionName: 'components_button_icon_buttons';
+  info: {
+    displayName: 'IconButton';
+    icon: 'cursor';
+    description: '';
+  };
+  attributes: {
+    name: Attribute.String;
+    url: Attribute.String & Attribute.Required;
+    icon: Attribute.Media<'images'> & Attribute.Required;
   };
 }
 
@@ -44,6 +59,7 @@ declare module '@strapi/types' {
       'menu.link': MenuLink;
       'content-block.rich-text': ContentBlockRichText;
       'content-block.image': ContentBlockImage;
+      'button.icon-button': ButtonIconButton;
     }
   }
 }

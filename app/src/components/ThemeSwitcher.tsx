@@ -1,9 +1,9 @@
 "use client";
 
 import { Button, ButtonGroup } from "@nextui-org/react";
-import { useTheme } from "next-themes";
 import { useEffect, useMemo, useState } from "react";
 import { MdLightMode, MdAutoAwesome, MdDarkMode } from "react-icons/md";
+import { type Theme, useTheme } from "~/utils/theme";
 
 export function ThemeSwitcher() {
   const [mounted, setMounted] = useState(false);
@@ -27,7 +27,7 @@ export function ThemeSwitcher() {
         icon: MdDarkMode,
         key: "dark",
       },
-    ];
+    ] as Array<{ icon: React.ComponentType; key: Theme }>;
   }, []);
 
   if (!mounted) return null;
